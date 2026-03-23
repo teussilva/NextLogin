@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <script src="/frontend/scripts/api-mock-cadastro.js" defer></script>
+    <!-- Link css Global -->
+     <link rel="stylesheet" href="/frontend/styles/global.css">
+</head>
+<body>
+
+    <main class="auth-container">
+        <div class="auth-content">
+            <div class="auth-content-left">
+                <div class="auth-main-logo">
+                    <img src="../img/NextLogin-logo.png" alt="Logo NextLogin" title="Logo NextLogin">
+                </div>
+                <h1>Seja bem-vindo!</h1>
+            </div>
+            <div class="auth-content-right">
+                <h2>Cadastrar</h2>
+                <div class="auth-form-cadastro">
+                    <form action="#" id="formCadastro">
+                        <div class="form-input input-nome">
+                            <input type="text" name="nome" placeholder="Nome completo" id="nome">
+                        </div>
+                        <div class="form-input input-email">
+                            <input type="email" name="email" placeholder="email" id="email">
+                        </div>
+                        <div class="form-input input-foto">
+                            <label for="foto-perfil">Escolha uma foto de Perfil</label><br>
+                            <input type="file" name="file" id="foto">
+                        </div>
+                        <div class="form-input input-password">
+                            <input type="password" name="password" placeholder="Senha" id="senha">
+                        </div>
+                        <div id="btn-cadastrar">
+                             <button type="submit">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+</body>
+</html>
