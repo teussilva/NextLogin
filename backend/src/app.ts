@@ -10,3 +10,7 @@ app.use(express.json())
 
 app.use('/api/usuarios', usuarioRoutes)
 app.use('/api/tarefas', tarefaRoutes)
+
+app.use('/uploads', express.static('uploads'))
+
+

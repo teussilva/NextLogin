@@ -7,13 +7,15 @@ export class UsuarioController {
 
   async cadastrar(req: Request, res: Response) {
     try {
-      const { nome, email, senha, foto, cargo } = req.body
+      const { nome, email, senha, cargo } = req.body
 
       const usuarioExistente = await Usuario.buscarPorEmail(email)
       if (usuarioExistente) {
         return res.status(400).json({ mensagem: 'Email já cadastrado!' })
       }
 
+      const foto = req.file ? req.file.filename : null
+       console.log("Dados recebidos:", { nome, email,  foto});
       const senhaCriptografada = await bcrypt.hash(senha, 10)
       const usuario = new Usuario(nome, email, senhaCriptografada, foto, cargo)
       await usuario.salvar()
