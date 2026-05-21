@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+   <link rel="stylesheet" href="/frontend/styles/global.css">
+</head>
+<body>
+
+    <main class="auth-container">
+        <div class="auth-content">
+            <div class="auth-content-left">
+                <div class="auth-main-logo">
+                    <img src="./img/NextLogin-logo-nova.png" alt="Logo NextLogin" title="Logo NextLogin">
+                </div>
+            </div>
+            <div class="auth-content-right">
+                <h2>Login</h2>
+                <div class="auth-form-login">
+                    <form id="formLogin" method="post">
+                        <div class="form-input input-email">
+                            <input type="email" name="email" placeholder="email" id="email">
+                        </div>
+                        <div class="form-input input-password">
+                            <input type="password" name="senha" placeholder="Senha" id="senha">
+                        </div>
+                        <div id="btn-login">
+                            <button type="submit">Entrar</button>
+                        </div>
+                    </form>
+                    <a style="cursor: pointer;" href="./cadastro.html">Faça login</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/frontend/js/login.js"></script>
+</body>
+</html>

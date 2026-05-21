@@ -7,7 +7,7 @@ const tarefaController = new TarefaController()
 
 router.get('/list', autenticar, tarefaController.listar)
 router.post('/criar', autenticar, tarefaController.criar)
-router.put('/atualziar/:id', tarefaController.atualizar)
+router.put('/atualizar/:id', autenticar, tarefaController.atualizar)
 router.delete('/delete/:id', autenticar, tarefaController.excluir)
 
 export default router

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/frontend/styles/global.css">
+  <title>Dashboard</title>
+</head>
+
+<body id="dashboard-body">
+  <div class="dashboard-container-main">
+    <aside class="aside-menu">
+      <div class="aside-menu-content">
+        <div class="aside-menu-text-top">
+          <p>Next</p><span>Login</span>
+        </div>
+        <nav class="aside-nav-menu">
+          <h3>Navegação</h3>
+          <ul>
+            <li data-section="dashboard"><a href="#">🏠 Dashboard</a></li>
+            <li data-section="criar-tarefa"><a href="#">➕ Criar tarefa</a></li>
+            <li data-section="minhas-tarefas"><a href="#">📋 Minhas tarefas</a></li>
+            <li data-section="perfil"><a href="#">⚙️ Perfil</a></li>
+            <li class="bottom" id="btn-logout"><a href="#">🚪 Sair</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="dashboard-main-container">
+      <header class="header-container">
+        <div class="container">
+          <div class="header-content">
+            <div class="btn-menu bg-btn-header"><img src="/frontend/img/Header-Menu.png" alt="Abrir menu"></div>
+            <h1 style="color: black;" class="header-text-admin">Admin Dashboard</h1>
+            <div class="btn-menu-paint-palete bg-btn-header">
+              <img src="/frontend/img/Paint-Palette.png" alt="Abrir menu" width="39" height="29">
+            </div>
+            <div class="header-info-perfil">
+              <div class="header-info-text">
+                <p class="header-info-text-nome"></p>
+                <span class="header-info-text-cargo">Admin</span>
+              </div>
+              <div class="header-info-usuario-foto"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="dashboard-content" id="dashboard">
+        <div class="container">
+          <h2 style="color: #FFFF;">/Dashboard</h2>
+          <div class="cards-container d-flex">
+            <div class="card-info">
+              <img src="/frontend/img/checked.png" alt="">
+              <div>
+                <p id="total-concluida-tarefa"></p>
+                <p>Tarefas Concluídas</p>
+              </div>
+            </div>
+            <div class="card-info">
+              <img src="/frontend/img/Deadline.png" alt="">
+              <div>
+                <p id="total-pendente-tarefa">0</p>
+                <p>Tarefas Pendentes</p>
+              </div>
+            </div>
+            <div class="card-info">
+              <img src="/frontend/img/Edit Property.png" alt="">
+              <div>
+                <p id="total-a-fazer-tarefa"></p>
+                <p>A Fazer</p>
+              </div>
+            </div>
+          </div>
+          <div class="tarefas-tabela-container">
+            <div class="msg-deletar-tarefa"></div>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tarefa</th>
+                  <th>Prioridade</th>
+                  <th>Status</th>
+                  <th>Data</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+            <div class="data-full-tarefa">
+              <div class="data-full-tarefa-header-content">
+                <h3>Detalhes da Tarefa</h3>
+                <div><img id="close-icon" style="color: #FFFF;cursor: pointer;" src="./img/close.png" alt=""></div>
+              </div>
+              <div class="data-full-tarefa-content-center">
+                <div class="data-full-tarefa-header-content-inputs">
+                  <div class="data-input">
+                    <label for="titulo">Titulo</label>
+                    <input type="button" value="" id="data-previa-input-titulo" disabled>
+                  </div>
+                  <div class="data-input">
+                    <label for="titulo">Descrição</label>
+                    <input type="button" value="" id="data-previa-input-descricao" disabled>
+                  </div>
+                  <div class="data-input">
+                    <label for="titulo">Prioridade</label>
+                    <input type="button" value="" id="data-previa-input-prioridade" disabled>
+                  </div>
+                  <div class="data-input">
+                    <label for="titulo">Status</label>
+                    <input type="button" value="" id="data-previa-input-status" disabled>
+                  </div>
+                  <div class="data-input">
+                    <label for="titulo">Data</label>
+                    <input type="button" value="" id="data-previa-input-data" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-excluir-container">
+              <div class="modal-excluir-content">
+                <img src="./img/lixeira.png" alt="">
+                <h3>Excluir Tarefa?</h3>
+                <p>
+                  Tem certeza que deseja excluir essa tarefa? Essa<br>ação não pode ser desfeita.
+                </p>
+                <div id="titulo-tarefa">
+                </div>
+                <div class="buttons-modal">
+                  <div class="modal-btn" id="btn-cancelar">
+                    <button>Cancelar</button>
+                  </div>
+                   <div class="modal-btn" id="btn-excluir">
+                    <button>Excluir</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-content hidden" id="criar-tarefa">
+        <h2 style="color: #FFFF;">/Dashboard/CriarTarefa</h2>
+        <div class="criar-tarefa-container">
+          <div id="criar-tarefa-content-left">
+            <div class="form-criar-tarefa">
+              <div class="msg-tarefa-criada-container">
+                <p id="msg-tarefa-criada"></p>
+              </div>
+              <form id="formCriarTarefa">
+                <div class="input-grup">
+                  <div class="input input-titulo-da-tarefa">
+                    <label for="tituloDaTarefa">*Título da tarefa</label>
+                    <input type="text" name="tituloDaTarefa" id="tituloDaTarefa"
+                      placeholder="Ex: Criar tela de login...">
+                  </div>
+                  <div class="input input-descricao">
+                    <label for="descricao">*Descrição</label>
+                    <input type="text" name="descricao" id="descricao"
+                      placeholder="Ex: Desenvolver a tela de login do sistema...">
+                  </div>
+                  <div class="input input-prioridade">
+                    <label for="prioridade">*Prioridade</label>
+                    <select name="prioridade" id="prioridade">
+                      <option value="">Selecione a prioridade</option>
+                      <option value="Alta">Alta</option>
+                      <option value="Média">Média</option>
+                      <option value="Baixa">Baixa</option>
+                    </select>
+                  </div>
+                  <div class="input input-status">
+                    <label for="status">*Status</label>
+                    <select name="status" id="status">
+                      <option value="">Selecione o status</option>
+                      <option value="A Fazer">A Fazer</option>
+                      <option value="Concluida">Concluída</option>
+                      <option value="Pendente">Pendente</option>
+                    </select>
+                  </div>
+                  <div class="input input-data">
+                    <label for="data">*Data</label>
+                    <input type="date" name="data" id="data">
+                  </div>
+                </div>
+                <div class="buttons-form">
+                  <div id="button-salvar">
+                    <button type="submit">Salvar</button>
+                  </div>
+                  <div id="button-cancelar">
+                    <button type="button">Cancelar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="criar-tarefa-content-right">
+            <div class="criar-tarefa-content-top">
+              <h3>Prévia da Tarefa</h3>
+              <span class="criar-tarefa-content-line"></span>
+            </div>
+            <div class="criar-tarefa-content-center">
+              <div class="criar-tarefa-content-previa">
+                <div class="criar-tarefa-content-previa-inputs">
+                  <div class="input" id="input-titulo">
+                    <label for"tituloDaTarefa">Tíitulo</label>
+                    <input type="text" name="tituloDaTarefa" disabled>
+                  </div>
+                  <div class="input" id="input-descricao">
+                    <label for"descricao">Descrição</label>
+                    <input type="text" name="descricao" tela de login di sistema" disabled>
+                  </div>
+                  <div class="input" id="input-prioridade">
+                    <label for"prioridade">Prioridade</label>
+                    <input type="text" name="prioridade" disabled>
+                  </div>
+                  <div class="input" id="input-status">
+                    <label for"status">status</label>
+                    <input type="text" name="status" disabled>
+                  </div>
+                  <div class="input" id="input-data">
+                    <label for"data">Data</label>
+                    <input type="text" name="data" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-content hidden" id="minhas-tarefas">
+        <div class="container">
+          <h2 style="color: #FFFF;">/Dashboard/MinhasTarefas</h2>
+          <div class="filtro-tarefas-container">
+            <div class="filtro-trafeas-top">
+              <div class="all-opcoes-filtro-tarefa">
+                <ul>
+                  <li><a href="#">Todas</a></li>
+                  <li><a href="#">A Fazer</a></li>
+                  <li><a href="#">Pendente</a></li>
+                  <li><a href="#">Concluida</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="filtro-trafeas-center">
+              <div class="filtro-trafeas-center-content">
+                <h3>Tarefas Recentes</h3>
+                <div class="minhas-tarefas-content">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Tarefa</th>
+                        <th>Prioridade</th>
+                        <th>Status</th>
+                        <th>Data</th>
+                        <!-- <th>Ação</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-content hidden" id="perfil">
+        <h2 style="color: black;">/Dashboard/Perfil</h2>
+      </section>
+
+    </main>
+  </div>
+  <script src="/frontend/js/dashboard.js"></script>
+  <script src="/frontend/js/criarTarefa.js"></script>
+</body>
+
+</html>

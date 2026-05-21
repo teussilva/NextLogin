@@ -1,5 +1,6 @@
-import multer from 'multer'
+import multer, { MulterError } from 'multer'
 import path from 'path'
+import { Request, Response, NextFunction } from 'express'
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -11,11 +12,18 @@ const storage = multer.diskStorage({
   }
 })
 
-export const upload = multer({
+const uploadMiddleware = multer({
   storage,
-  limits: { fileSize: 2 * 1024 * 1024 },
+  limits: { fileSize: 3 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const tiposPermitidos = ['image/jpeg', 'image/png', 'image/jpg']
+    const tiposPermitidos = [
+      'image/jpeg', 
+      'image/png', 
+      'image/jpg', 
+      'image/gif', 
+      'image/webp', 
+      'image/jif'
+    ]
 
     if (tiposPermitidos.includes(file.mimetype)) {
       cb(null, true)
@@ -24,3 +32,28 @@ export const upload = multer({
     }
   }
 })
+
+// Wrapper com tratamento de erro
+export const upload = {
+  single: (fieldName: string) =>
+    (req: Request, res: Response, next: NextFunction) => {
+      uploadMiddleware.single(fieldName)(req, res, (err) => {
+        if (!err) return next()
+
+        // Cliente cancelou — ignora silenciosamente
+        if (req.destroyed || err.message === 'Request aborted') return
+
+        // Erro do Multer (tamanho, tipo, etc.)
+        if (err instanceof MulterError) {
+          return res.status(400).json({ erro: err.message })
+        }
+
+        // Erro do fileFilter
+        if (err.message === 'Arquivo inválido') {
+          return res.status(400).json({ erro: 'Tipo de arquivo não permitido' })
+        }
+
+        return res.status(500).json({ erro: 'Erro no upload' })
+      })
+    }
+}

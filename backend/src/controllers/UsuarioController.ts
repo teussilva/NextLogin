@@ -15,12 +15,23 @@ export class UsuarioController {
       }
 
       const foto = req.file ? req.file.filename : null
-       console.log("Dados recebidos:", { nome, email,  foto});
       const senhaCriptografada = await bcrypt.hash(senha, 10)
       const usuario = new Usuario(nome, email, senhaCriptografada, foto, cargo)
       await usuario.salvar()
 
-      return res.status(201).json({ mensagem: 'Usuário cadastrado com sucesso!' })
+      console.log(usuario)
+
+      return res.status(201).json(
+        { 
+          mensagem: 'Usuário cadastrado com sucesso!',
+          usuario: {
+            nome,
+            email,
+            foto,
+            cargo          
+          }
+        }
+      )
     } catch (error) {
       return res.status(500).json({ mensagem: 'Erro interno do servidor' })
     }
@@ -43,7 +54,7 @@ export class UsuarioController {
       const token = jwt.sign(
         { id: usuario.id, email: usuario.email },
         process.env.JWT_SECRET as string,
-        { expiresIn: '1h' }
+        { expiresIn: '5h' }
       )
 
       return res.status(200).json({
