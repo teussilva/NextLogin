@@ -22,7 +22,7 @@
             <li data-section="criar-tarefa"><a href="#">➕ Criar tarefa</a></li>
             <li data-section="minhas-tarefas"><a href="#">📋 Minhas tarefas</a></li>
             <li data-section="perfil"><a href="#">⚙️ Perfil</a></li>
-            <li class="bottom" id="btn-logout"><a href="#">🚪 Sair</a></li>
+            <li class="bottom" id="btn-logout"><a class="text-center" href="#">🚪 Sair</a></li>
           </ul>
         </nav>
       </div>
@@ -133,7 +133,7 @@
                   <div class="modal-btn" id="btn-cancelar">
                     <button>Cancelar</button>
                   </div>
-                   <div class="modal-btn" id="btn-excluir">
+                  <div class="modal-btn" id="btn-excluir">
                     <button>Excluir</button>
                   </div>
                 </div>
@@ -258,7 +258,6 @@
                         <th>Prioridade</th>
                         <th>Status</th>
                         <th>Data</th>
-                        <!-- <th>Ação</th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -272,13 +271,70 @@
       </section>
 
       <section class="dashboard-content hidden" id="perfil">
-        <h2 style="color: black;">/Dashboard/Perfil</h2>
-      </section>
+        <div class="container">
+          <h2 style="color: #FFFF;">/Dashboard/Perfil</h2>
+          <div class="dashboard-content-perfil-container">
 
+            <!-- Card superior: avatar + foto -->
+            <div class="dashboard-content-perfil-content">
+              <div id="msg-foto-atualizada-perfil">
+                Foto Atualizada com sucesso!
+              </div>
+              <div class="dashboard-content-perfil-content-top">
+                <div class="foto-perfil"></div>
+                <p id="nome-completo"></p>
+                <span id="email-usuario"></span>
+                <form id="form-foto">
+                  <input type="file" id="input-foto" accept="image/*" style="display:none;">
+                  <button type="button" id="btn-alterar-foto" onclick="document.getElementById('input-foto').click()">
+                    📷 Alterar foto
+                  </button>
+                  <button type="submit" id="btn-salvar-foto" style="display:none;">Salvar foto</button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Card inferior: editar informações -->
+            <div class="dashboard-content-perfil-form">
+              <h3>Editar Informações</h3>
+              <div class="msg-perfil"></div>
+              <form id="form-perfil">
+                <div class="input">
+                  <label>Nome completo</label>
+                  <input type="text" name="perfil-nome" id="perfil-nome" placeholder="Seu nome">
+                </div>
+                <div class="input">
+                  <label>Email</label>
+                  <input type="email" name="perfil-email" id="perfil-email" placeholder="Seu email">
+                </div>
+                <div class="input">
+                  <label>Cargo</label>
+                  <select id="perfil-cargo">
+                    <option value="Admin">Admin</option>
+                    <option value="usuario">Usuário</option>
+                  </select>
+                </div>
+                <div class="input">
+                  <label>Nova senha (opcional)</label>
+                  <input type="password" name="perfil-nova-senha" id="perfil-nova-senha" placeholder="Deixe em branco para não alterar">
+                </div>
+                <div class="input">
+                  <label>Confirmar nova senha</label>
+                  <input type="password" name="perfil-confirmar-senha" id="perfil-confirmar-senha" placeholder="Confirme a nova senha">
+                </div>
+                <button class="hidden-btn" id="btn-salvar-alteracao" type="submit">Salvar Informações</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
   <script src="/frontend/js/dashboard.js"></script>
   <script src="/frontend/js/criarTarefa.js"></script>
+  <script src="/frontend/js/mostrar-foto-perfil.js"></script>
+  <script src="/frontend/js/editar-foto-perfil.js"></script>
+  <script src="/frontend/js/editar-informacoes.js"></script>
 </body>
 
 </html>

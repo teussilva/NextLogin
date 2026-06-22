@@ -15,7 +15,6 @@ let todasTarefas = []
 let tarefaParaExluir = null
 let tarefaEditando = null
 
-// Criandoa função para manipulacao de data
 let formatarData = (dataISO) =>
      dataISO.replace(/(\d{4})-(\d{2})-(\d{2}).*/,'$3/$2/$1')
 
@@ -199,9 +198,8 @@ const renderizarTarefas = (tarefas) => {
 const limitarTextoPreview = (texto, limite=80) =>{
     if(!texto) 
         return ''
-    if(texto.length > limite) {
+    if(texto.length > limite) 
         return texto.slice(0, limite) + '...'
-    }
     return texto
 }
 
@@ -403,7 +401,8 @@ formCriarTarefa.addEventListener("submit", async (e) => {
         return
     }
 
-    let dadosTarefa  = {
+    let dadosTarefa  =  
+    {
         titulo: inputTituloDaTarefa,
         descricao: inputDescicao,
         prioridade: select_prioridade,
@@ -418,11 +417,8 @@ formCriarTarefa.addEventListener("submit", async (e) => {
     }
 
    if(tarefaEditando != null) {
-
       const respostaEditar = await fecthEditarTarefa(dadosTarefa, tarefaEditando)
-
       if(respostaEditar){
-
         todasTarefas = todasTarefas.map(tarefa => {
             if(tarefa.id === tarefaEditando){
                 return {
@@ -430,28 +426,17 @@ formCriarTarefa.addEventListener("submit", async (e) => {
                     ...dadosTarefa
                 }
             }
-
             return tarefa
         })
-
         renderizarTarefas(todasTarefas)
-
         let tarefaAtualizada = todasTarefas.filter(tarefa => tarefa.id === tarefaEditando)
-
         setDadosPreviaTarefa(tarefaAtualizada)
-
         await atualizarDashboard()
-
         formCriarTarefa.reset()
-
         tarefaEditando = null
-
         document.getElementById('button-salvar').children[0].textContent = 'Salvar'
-
         document.querySelector('.msg-tarefa-criada-container').classList.add('active')
-
         document.getElementById('msg-tarefa-criada').textContent = respostaEditar.mensagem
-
         setTimeout(() => {
             document.querySelector('.msg-tarefa-criada-container').classList.remove('active')
              window.location = './dashboard.html'

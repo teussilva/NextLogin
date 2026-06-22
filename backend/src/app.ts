@@ -7,8 +7,10 @@ export const app = express()
 
 app.use(cors({
   origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // ✅ PATCH e OPTIONS adicionados
+  allowedHeaders: ['Authorization', 'Content-Type']              // ✅ headers liberados
 }))
+
 app.use(express.json())
 
 app.use('/api/usuarios', usuarioRoutes)

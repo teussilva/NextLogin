@@ -9,7 +9,9 @@ const usuarioController = new UsuarioController()
 
 router.post('/cadastrar', upload.single('foto'), usuarioController.cadastrar.bind(usuarioController))
 router.post('/login', usuarioController.login.bind(usuarioController))
-router.put('/perfil/:id', autenticar, usuarioController.atualizarPerfil.bind(usuarioController))
+router.patch('/perfil/:id', autenticar, usuarioController.atualizarPerfil.bind(usuarioController))
+router.patch('/:id/foto', autenticar, upload.single('foto'), usuarioController.atualizarFoto.bind(usuarioController))
+
 
 
 

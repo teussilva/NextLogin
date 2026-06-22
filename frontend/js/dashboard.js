@@ -1,7 +1,6 @@
 const header_text_nome = document.querySelector('.header-container .header-info-text-nome')
 const header_text_cargo = document.querySelector('.header-container .header-info-text-cargo')
 const header_usuario_foto = document.querySelector('.header-container .header-info-usuario-foto')
-
 const aside_nav_menu = document.querySelectorAll('.aside-menu nav ul li')
 const sections = document.querySelectorAll('section')
 

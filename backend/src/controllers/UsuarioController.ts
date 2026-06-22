@@ -73,16 +73,55 @@ export class UsuarioController {
     }
   }
 
-  async atualizarPerfil(req: Request, res: Response) {
+ async atualizarFoto(req: Request, res: Response) {
     try {
-      const { id } = req.params
-      const { nome, foto } = req.body
-
-      await Usuario.atualizar(Number(id), nome, foto)
-
-      return res.status(200).json({ mensagem: 'Perfil atualizado com sucesso!' })
+        const { id } = req.params
+        const foto = req.file ? req.file.filename : null
+        if (!foto) {
+            return res.status(400).json({ mensagem: 'Nenhuma foto enviada!' })
+        }
+        await Usuario.atualizarFoto(Number(id), foto)
+        return res.status(200).json({ mensagem: 'Foto atualizada com sucesso!', foto })
     } catch (error) {
-      return res.status(500).json({ mensagem: 'Erro interno do servidor' })
+        return res.status(500).json({ mensagem: 'Erro interno do servidor' })
+    }
+}
+
+async atualizarPerfil(req: Request, res: Response) {
+    try {
+        console.log(req.body)
+
+        const { id } = req.params
+        const { nome, email, cargo, novaSenha } = req.body
+
+        const senhaHash = novaSenha
+            ? await bcrypt.hash(novaSenha, 10)
+            : undefined
+
+        await Usuario.atualizarPerfil(
+            Number(id),
+            nome,
+            email,
+            cargo,
+            senhaHash
+        )
+
+        return res.status(200).json({
+            mensagem: 'Perfil atualizado com sucesso!',
+            usuario: {
+              id: Number(id),
+              nome,
+              email,
+              cargo
+            }
+        })
+
+    } catch (error) {
+        console.error(error)
+
+        return res.status(500).json({
+            mensagem: 'Erro interno do servidor'
+        })
     }
   }
 }

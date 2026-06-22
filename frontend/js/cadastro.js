@@ -78,7 +78,7 @@ const fetchCadastrarUsuario = async (formData) => {
         if(response.ok) {
             localStorage.setItem('usuario', JSON.stringify(dados.usuario))
             setTimeout(() => {
-                window.location = './login.html'
+                window.location.href = 'login.html'
             }, 500)
         }
     } catch (error) {

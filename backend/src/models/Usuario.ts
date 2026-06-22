@@ -42,12 +42,25 @@ export class Usuario {
         return (rows as any[])[0]
     }
 
-    static async atualizar(id: number, nome: string, foto?: string) {
+    static async atualizarFoto(id: number, foto: string) {
         const [result] = await connection.query(
-            'UPDATE usuarios SET nome = ?, foto = ? WHERE id = ?', 
-            [nome, foto, id]
+            'UPDATE usuarios SET foto = ? WHERE id = ?',
+            [foto, id]
         )
         return result
     }
 
+    static async atualizarPerfil(id: number, nome: string, email: string, cargo: string, senhaHash?: string) {
+        if(senhaHash) {
+            await connection.query(
+                'UPDATE usuarios SET nome = ?, email = ?, cargo = ?, senha = ? WHERE id = ?',
+                [nome, email, cargo, senhaHash, id]
+            )
+        } else {
+            await connection.query(
+                'UPDATE usuarios SET nome = ?, email = ?, cargo = ? WHERE id = ?',
+                 [nome, email, cargo, id]
+            )
+        }
+    }
 }
