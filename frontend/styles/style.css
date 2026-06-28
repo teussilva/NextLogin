@@ -10,6 +10,7 @@
     --button-bg: #3C3C72;
     --sidebar-bg: #ADBFEB;
     --text-dark: #1A1A2E;
+    --darkTheme: #000
 }
 
 * {
@@ -27,8 +28,18 @@ html, body {
 body {
     font-size: 82.5%;
     background: var(--dashboard-color-bg);
+    transition: 0.5s ease-in;
 }
-
+body.dark-theme, .aside-menu.dark-theme, .header-container.dark-theme{
+    background: var(--darkTheme) !important;
+    color: var(--auth-color-white) !important;
+}
+.aside-menu.dark-theme {
+    border-right: 1px solid var(--auth-color-white);
+}
+i{
+    font-size: 28px;
+}
 h1 {
     color: #ffff;
     opacity: 0.7;
@@ -57,9 +68,24 @@ section {
     position: relative;
     transition: 0.3s;
 }
-/* .hidden-btn{
-    display: none;
-} */
+.aside-menu-text-top p,span{
+    font-size: 24px !important;
+}
+
+ .btn-fazer-logn, .btn-fazer-cadastro{
+    color: var(--text-dark);
+    font-size: 16.5px;
+    display: block;
+    text-align: center;
+    padding-top: 40px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+ }
+ .btn-fazer-cadastro{
+   position: relative;
+   top: 200px;
+ }
 #msg-foto-atualizada-perfil{
     background: #2A2A8A;
     font-size: 18px;
@@ -169,6 +195,8 @@ section {
 
 .auth-content .auth-content-left {
     height: 100%;
+    max-width: 50%;
+    width: 50%;
     flex: 1;
     background-image: url("../img/NextLogin-logo-nova.png");
     background-size: cover;
@@ -196,6 +224,7 @@ section {
     flex: 1;
     background: var(--auth-color-background-content-right);
     height: 100%;
+    max-width: 50%;
     width: 50%;
 }
 
@@ -437,7 +466,7 @@ section {
 }
 
 .btn-menu,
-.btn-menu-paint-palete {
+.btn-menu-dark-theme {
     cursor: pointer;
 }
 

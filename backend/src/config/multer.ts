@@ -33,22 +33,18 @@ const uploadMiddleware = multer({
   }
 })
 
-// Wrapper com tratamento de erro
 export const upload = {
   single: (fieldName: string) =>
     (req: Request, res: Response, next: NextFunction) => {
       uploadMiddleware.single(fieldName)(req, res, (err) => {
         if (!err) return next()
 
-        // Cliente cancelou — ignora silenciosamente
         if (req.destroyed || err.message === 'Request aborted') return
 
-        // Erro do Multer (tamanho, tipo, etc.)
         if (err instanceof MulterError) {
           return res.status(400).json({ erro: err.message })
         }
 
-        // Erro do fileFilter
         if (err.message === 'Arquivo inválido') {
           return res.status(400).json({ erro: 'Tipo de arquivo não permitido' })
         }

@@ -7,8 +7,8 @@ export const app = express()
 
 app.use(cors({
   origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // ✅ PATCH e OPTIONS adicionados
-  allowedHeaders: ['Authorization', 'Content-Type']              // ✅ headers liberados
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], 
+  allowedHeaders: ['Authorization', 'Content-Type']              
 }))
 
 app.use(express.json())

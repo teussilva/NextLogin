@@ -5,8 +5,6 @@ const select_perfilCargo = document.getElementById('perfil-cargo')
 const input_perfilNovaSenha = document.getElementById('perfil-nova-senha')
 const input_perfilConfirmarSenha = document.getElementById('perfil-confirmar-senha')
 
-
-
 const fetchEditInformacoesPerfil = async (obj) => {
    const localstorage_usario = JSON.parse(localStorage.getItem('usuario'))
    let token = localStorage.getItem('token')
@@ -49,7 +47,6 @@ const createObjInfoPerfil = (nome, email, cargo, novaSenha) => {
         cargo,
         novaSenha
     }
-
     fetchEditInformacoesPerfil(objInfoPerfil)
 }
 

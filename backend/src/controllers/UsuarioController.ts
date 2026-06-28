@@ -4,23 +4,18 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 export class UsuarioController {
-
   async cadastrar(req: Request, res: Response) {
     try {
       const { nome, email, senha, cargo } = req.body
-
       const usuarioExistente = await Usuario.buscarPorEmail(email)
       if (usuarioExistente) {
         return res.status(400).json({ mensagem: 'Email já cadastrado!' })
       }
-
       const foto = req.file ? req.file.filename : null
       const senhaCriptografada = await bcrypt.hash(senha, 10)
       const usuario = new Usuario(nome, email, senhaCriptografada, foto, cargo)
       await usuario.salvar()
-
       console.log(usuario)
-
       return res.status(201).json(
         { 
           mensagem: 'Usuário cadastrado com sucesso!',

@@ -22,7 +22,6 @@ export class TarefaController {
     try {
       const usuario_id = (req as any).usuario.id
       const tarefas = await Tarefa.buscarTodas(usuario_id)
-      console.log(tarefas)
       return res.status(200).json(tarefas)
     } catch (error) {
       return res.status(500).json({ mensagem: 'Erro interno do servidor' })

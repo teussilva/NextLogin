@@ -37,7 +37,6 @@ const fecthEditarTarefa = async (dadosTarefa, id) => {
       }
 
       const dados = await response.json()
-      console.log(dados)
       return dados
    } catch(error){
       console.error(error)

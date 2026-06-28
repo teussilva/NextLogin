@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/frontend/styles/global.css">
+  <link rel="stylesheet" href="/frontend/styles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Dashboard</title>
 </head>
 
@@ -34,8 +35,8 @@
           <div class="header-content">
             <div class="btn-menu bg-btn-header"><img src="/frontend/img/Header-Menu.png" alt="Abrir menu"></div>
             <h1 style="color: black;" class="header-text-admin">Admin Dashboard</h1>
-            <div class="btn-menu-paint-palete bg-btn-header">
-              <img src="/frontend/img/Paint-Palette.png" alt="Abrir menu" width="39" height="29">
+            <div class="btn-menu-dark-theme bg-btn-header">
+              <i class="fa-solid fa-moon"></i>
             </div>
             <div class="header-info-perfil">
               <div class="header-info-text">
@@ -278,7 +279,7 @@
             <!-- Card superior: avatar + foto -->
             <div class="dashboard-content-perfil-content">
               <div id="msg-foto-atualizada-perfil">
-                Foto Atualizada com sucesso!
+               <p style="color: #FFFF; font-size: 1.1em;">Foto Atualizada com sucesso!</p>
               </div>
               <div class="dashboard-content-perfil-content-top">
                 <div class="foto-perfil"></div>
@@ -335,6 +336,7 @@
   <script src="/frontend/js/mostrar-foto-perfil.js"></script>
   <script src="/frontend/js/editar-foto-perfil.js"></script>
   <script src="/frontend/js/editar-informacoes.js"></script>
+  <script src="/frontend/js/dark-theme.js"></script>
 </body>
 
 </html>
