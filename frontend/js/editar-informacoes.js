@@ -31,7 +31,6 @@ const fetchEditInformacoesPerfil = async (obj) => {
 
             localStorage.setItem('usuario', JSON.stringify(usuarioAtualizado))
             window.location.reload()
-
         }
 
     } catch (error) {

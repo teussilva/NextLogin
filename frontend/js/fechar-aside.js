@@ -6,4 +6,6 @@ document.querySelector('.aside-btn-arrow-left').addEventListener('click', () => 
    dashboard_aside.classList.toggle('hidden')
    dashboard_main.classList.toggle('expand')
    dashboard_header.classList.toggle('expand')
+
+   console.log('jsjjs')
 })

@@ -61,27 +61,38 @@ class Cadastro {
 
 const fetchCadastrarUsuario = async (formData) => {
     const msgElement = document.querySelector('#msg-usuario')
+    console.log('1 - Entrou na funcao')
     try {
+        console.log('2 - Antes do fetch')
         const response = await fetch('http://127.0.0.1:3000/api/usuarios/cadastrar', {
             method: 'POST',
             mode: 'cors',
             body: formData
         })
+        console.log('3 - Depois do fetch')
+        console.log(response)
 
         const dados = await response.json()
+        console.log('4 - Depois do response.json()')
+        console.log(dados)
+
+        console.log(response.ok)
 
         if (!response.ok) {
+            console.log('5 - Entrou no erro')
             alert(dados.mensagem || 'Erro ao cadastrar!')
             return
         }
-        
+
         if(response.ok) {
+            console.log('6 - Vai redirecionar')
             localStorage.setItem('usuario', JSON.stringify(dados.usuario))
-            setTimeout(() => {
-                window.location.href = 'login.html'
-            }, 500)
+            window.location = 'login.html'
+            return dados
         }
+        
     } catch (error) {
+        console.log('7 -ERRO NO CATCH')
         if (msgElement) {
             msgElement.classList.remove('hidden', 'correct')
             msgElement.classList.add('incorrect')

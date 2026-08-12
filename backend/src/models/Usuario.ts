@@ -22,7 +22,7 @@ export class Usuario {
        )
        return result
     }
-    async listarUsuarios() {
+    static async listarUsuarios() {
         const [result] = await connection.query('SELECT * FROM usuarios')
         return result
     }

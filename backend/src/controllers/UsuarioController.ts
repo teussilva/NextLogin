@@ -4,6 +4,16 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 export class UsuarioController {
+  async listarUsuarios(_req: Request, res: Response) {
+    try {
+      const listarTodosUsuarios = await Usuario.listarUsuarios()
+      return res.status(200).json({
+        usuarios: listarTodosUsuarios
+      })
+    } catch (error) {
+      return res.status(500).json({ mensagem: 'Erro ao listar todos usuarios' })
+    }
+  }
   async cadastrar(req: Request, res: Response) {
     try {
       const { nome, email, senha, cargo } = req.body
