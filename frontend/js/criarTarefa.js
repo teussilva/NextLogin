@@ -275,10 +275,10 @@ const setExibirDadosDatarefaCriada = async () => {
                   <td>${formatarData(data)}</td>
                   <td>
                     <div class="buttons-acao-tarefa">
-                      <button onclick="verTarefa(${id})"><img src="/frontend/img/Eye.png" alt="Ver Tarefa" title="Ver Tarefa"></button>
-                      <button onclick="editarTarefa(${id})"><img src="/frontend/img/Pencil.png" alt="Editar Tarefa" title="Editar Tarefa"></button>
-                      <button onclick="excluirTarefa(${id})"><img src="/frontend/img/Remove.png" alt="Excluir Tarefa" title="Excluir Tarefa"></button>
-                      <button><img src="/frontend/img/Group 30.png" alt="Feito" title="Feito"></button>
+                      <button onclick="verTarefa(${id})"><img src="./img/Eye.png" alt="Ver Tarefa" title="Ver Tarefa"></button>
+                      <button onclick="editarTarefa(${id})"><img src="./img/Pencil.png" alt="Editar Tarefa" title="Editar Tarefa"></button>
+                      <button onclick="excluirTarefa(${id})"><img src="./img/Remove.png" alt="Excluir Tarefa" title="Excluir Tarefa"></button>
+                      <button><img src="./img/Group 30.png" alt="Feito" title="Feito"></button>
                     </div>
                   </td>
                </tr>

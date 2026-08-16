@@ -4,6 +4,8 @@ const header_usuario_foto = document.querySelector('.header-container .header-in
 const aside_nav_menu = document.querySelectorAll('.aside-menu nav ul li')
 const sections = document.querySelectorAll('section')
 
+// const token = localStorage.getItem('token')
+
 aside_nav_menu.forEach(itemLi => {
     itemLi.addEventListener('click', () => {
         sections.forEach(section => {
