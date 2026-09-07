@@ -20,9 +20,20 @@ describe('Login de usuário', () => {
       .post('/api/usuarios/login')
       .send({
         email: 'mh8093828@gmail.com',
-        senha: '1234567890'
+        senha: 'senhaErrada123'
       })
 
     expect(resposta.status).toBe(401)
+  })
+
+  it('deve retornar sucesso ao efetuar login', async () => {
+    const resposta = await request(app)
+      .post('/api/usuarios/login')
+      .send({
+        email: 'mh8093828@gmail.com',
+        senha: '1234567890'
+      })
+
+    expect(resposta.status).toBe(200)
   })
 })
