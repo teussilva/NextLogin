@@ -1,4 +1,5 @@
 import connection from "../database/connection";
+import { ResultSetHeader } from "mysql2";
 
 export class Tarefa {
     id?: number
@@ -19,10 +20,13 @@ export class Tarefa {
     }
 
     async salvar() {
-        const [result] = await connection.query(
+        const [result] = await connection.query<ResultSetHeader>(
             'INSERT INTO tarefas (titulo, descricao, prioridade, status, data, usuario_id) VALUES (?, ?, ?, ?, ?, ?)',
             [this.titulo, this.descricao, this.prioridade, this.status, this.data, this.usuario_id]
         )
+
+        this.id = result.insertId
+
         return result
     }
 

@@ -34,7 +34,6 @@ const fecthEditarTarefa = async (dadosTarefa, id) => {
          alert('Erro ao editar tarefa')
          return
       }
-
       const dados = await response.json()
       return dados
    } catch(error){
@@ -71,14 +70,14 @@ const fetchCarregartarefas = async () => {
             },
         })
 
+        if (!response.ok) 
+            return []
+        
         if (response.status === 401) {
             alert('Sessão expirada. Faça login novamente.')
             window.location = './login.html'
             return []
         }
-
-        if (!response.ok) 
-            return []
 
         const dados = await response.json()
         return Array.isArray(dados) ? dados : []
@@ -249,7 +248,6 @@ const excluirTarefa = async (id) => {
     let TarefaTitulo = tarefasCarregadas.filter(t => t.id === id)[0].titulo
     document.querySelector('.modal-excluir-container').classList.add('active')
     document.getElementById('titulo-tarefa').textContent = TarefaTitulo 
-    
 }
 
 //=========== Função responsavel para ver os dados da trefa cadastrada =============================//
@@ -263,7 +261,6 @@ const verTarefa = async (id) => {
 // ========== Função responsavel para inserior os dados da API nos elementos do DOM e renderizar no HTML ============//
 const setExibirDadosDatarefaCriada = async () => {
     const div_tarefasTabelaContainer = document.querySelector('.tarefas-tabela-container')
-    console.log(div_tarefasTabelaContainer)
     let tarefasCriada = await fetchCarregartarefas()
     tarefasCriada.forEach(({ id, titulo, prioridade, status, data }) => {
             div_tarefasTabelaContainer.querySelector('table > tbody').innerHTML += `
@@ -326,6 +323,8 @@ const setExibirDadosDatarefaCriada = async () => {
            tr.querySelectorAll('.status')[0].style.color = '#FFFF'
        }
     })
+
+    console.log(div_tarefasTabelaContainer)
 }
 
 //============= Evento de click para remover o data-full-tarefa ao ser clicado =============//
@@ -394,7 +393,13 @@ formCriarTarefa.addEventListener("submit", async (e) => {
     const select_status = e.target[3].value
     const inputData = e.target[4].value
 
-    if(inputTituloDaTarefa === '' || inputDescicao === '' || select_prioridade === '' || select_status === '' || inputData === '') {
+    if(
+        inputTituloDaTarefa === '' || 
+        inputDescicao === '' ||
+        select_prioridade === '' || 
+        select_status === '' || 
+        inputData === ''
+    ) {
         alert('Por preencha os campos obrigatórios!')
         return
     }
