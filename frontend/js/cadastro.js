@@ -51,13 +51,18 @@ class Cadastro {
             alert('Formato inválido! Use JPG, PNG, GIF ou WEBP.')
             return false
         }
-        if (this.foto.size > 3 * 1024 * 1024) {
+        if (this.foto.size > 20 * 1024 * 1024) {
             alert('A foto deve ter no máximo 20MB!')
             return false
         }
         return true
     }
 }
+
+const btnCadastrar = document.getElementById('btn-cadastrar')
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
+let cadastro_possuiError = false
 
 const fetchCadastrarUsuario = async (formData) => {
     const msgElement = document.querySelector('#msg-usuario')
@@ -71,14 +76,22 @@ const fetchCadastrarUsuario = async (formData) => {
         const dados = await response.json()
 
         if (!response.ok) {
-            alert(dados.mensagem || 'Erro ao cadastrar!')
+            cadastro_possuiError = true
+            document.getElementById('msg-usuario-cadastro').classList.add('active')
+            document.getElementById('msg-usuario-cadastro').classList.add('warning')
+            document.getElementById('msg-usuario-cadastro').textContent = dados.mensagem || 'Erro ao cadastrar!'
             return
         }
 
         if(response.ok) {
+            cadastro_possuiError = false
             localStorage.setItem('usuario', JSON.stringify(dados.usuario))
-            window.location = 'login.html'
-            return dados
+            document.getElementById('msg-usuario-cadastro').classList.add('active')
+             setTimeout(function (){
+                  window.location = 'login.html'
+             }, delay(400))
+           
+             return dados
         }
         
     } catch (error) {
@@ -117,7 +130,24 @@ window.addEventListener('DOMContentLoaded', () => {
         formData.append('senha', senha)
         formData.append('cargo', cargo)
 
-        await fetchCadastrarUsuario(formData)
+        btnCadastrar.disabled = true
+        btnCadastrar.textContent ='Fazendo cadastro...'
+        document.querySelector('.auth-content .auth-content-center .auth-form-cadastro form button').classList.add('cadastrando')
+        await delay(8000)
+        
+        try {
+            cadastro_possuiError ? document.getElementById('msg-usuario-cadastro').classList.remove('active') 
+            : document.getElementById('msg-usuario-cadastro').classList.remove('active')
+            const resultFetchCadastrarUsuario = await fetchCadastrarUsuario(formData)
+            return resultFetchCadastrarUsuario
+        } catch (error) {
+            alert('Error ao tentar cadastrar usuario' + error)
+            console.error(error)
+        }finally {
+            document.querySelector('.auth-content .auth-content-center .auth-form-cadastro form button').classList.remove('cadastrando')
+            btnCadastrar.disabled = false
+            btnCadastrar.textContent = 'Cadastrar'
+        }
     })
 })
 

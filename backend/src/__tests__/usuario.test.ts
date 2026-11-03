@@ -31,7 +31,7 @@ describe('Login de usuário', () => {
       .post('/api/usuarios/login')
       .send({
         email: 'mh8093828@gmail.com',
-        senha: '1234567890'
+        senha: '1234567890jhh'
       })
 
     expect(resposta.status).toBe(200)

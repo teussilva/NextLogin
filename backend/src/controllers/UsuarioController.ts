@@ -14,7 +14,7 @@ export class UsuarioController {
       return res.status(500).json({ mensagem: 'Erro ao listar todos usuarios' })
     }
   }
-  async cadastrar(req: Request, res: Response) {
+   async cadastrar(req: Request, res: Response) {
     try {
       const { nome, email, senha, cargo } = req.body
       const usuarioExistente = await Usuario.buscarPorEmail(email)
@@ -38,6 +38,7 @@ export class UsuarioController {
         }
       )
     } catch (error) {
+      console.error('ERRO NO CADASTRO:', error)
       return res.status(500).json({ mensagem: 'Erro interno do servidor' })
     }
   }
@@ -53,7 +54,7 @@ export class UsuarioController {
 
       const senhaCorreta = await bcrypt.compare(senha, usuario.senha)
       if (!senhaCorreta) {
-        return res.status(401).json({ mensagem: 'Senha incorreta!' })
+        return res.status(401).json({ mensagem: 'Email ou senhas incorreto(s)' })
       }
 
       const token = jwt.sign(
@@ -120,7 +121,6 @@ async atualizarPerfil(req: Request, res: Response) {
               cargo
             }
         })
-
     } catch (error) {
         console.error(error)
 

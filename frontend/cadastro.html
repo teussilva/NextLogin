@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
+    
+    <!-- 1. LINK DO BOOTSTRAP CSS-->
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    
     <!-- Link css Global -->
-     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/style.css">
 </head>
+
 <body>
     <main class="auth-container">
         <div class="auth-content lx w50">
@@ -17,6 +23,10 @@
             </div>
             <div class="auth-content-center">
                 <h2>Cadastrar</h2>
+                <div class="alert" role="alert" aria-live="polite" id="msg-usuario-cadastro">>
+                    🎉 <strong>Sucesso!</strong> Seu cadastro foi realizado com sucesso.
+                </div>
+                
                 <p class="msg-usuario hidden" id="msg-usuario">Usuario Cadastrado com sucesso</p>
                 <div class="auth-form-cadastro">
                     <form id="formCadastro">
@@ -34,11 +44,11 @@
                         <div class="form-input input-password">
                             <input type="password" name="senha" placeholder="Senha" id="senha">
                         </div>
-                         <div class="form-input input-cargo">
+                        <div class="form-input input-cargo">
                             <input type="text" name="cargo" placeholder="Cargo" id="cargo">
                         </div>
-                        <div id="btn-cadastrar">
-                             <button type="submit">Cadastrar</button>
+                        <div class="btn-cadastrar">
+                            <button type="submit" id="btn-cadastrar">Cadastrar</button>
                         </div>
                     </form>
                     <a class="btn-fazer-logn" href="./login.html">Faça login</a>
@@ -46,6 +56,10 @@
             </div>
         </div>
     </main>
-     <script src="./js/cadastro.js"></script>
+    
+    <!-- 2. LINK DO BOOTSTRAP JAVASCRIPT CORRIGIDO (Agora completo) -->
+    <script src="https://jsdelivr.net"></script>
+    <script src="./js/cadastro.js"></script>
+
 </body>
 </html>

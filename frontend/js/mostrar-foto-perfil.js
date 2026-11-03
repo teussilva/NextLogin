@@ -2,11 +2,12 @@ const div_content_perfil_foto = document.querySelector('.foto-perfil')
 
 const mostrarFotoDePerfil = () => {
     const usuario = JSON.parse(localStorage.getItem('usuario')) || {}
+    const { foto } = usuario
     try {
         let imgElement = document.createElement('img')
-        imgElement.src = `http://localhost:3000/uploads/${usuario.foto}`
-        imgElement.style.width = '100px'
-        imgElement.style.height = '100px'
+        imgElement.src = `http://localhost:3000/uploads/${foto}`
+        imgElement.style.width = '105px'
+        imgElement.style.height = '105px'
         imgElement.style.borderRadius = '50%'
         imgElement.style.objectFit = 'cover'        
         imgElement.style.objectPosition = 'center'

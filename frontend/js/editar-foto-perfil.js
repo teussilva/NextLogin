@@ -5,7 +5,7 @@ addEventListener('DOMContentLoaded', () => {
 
     const validarArquivo = (arquivo) => {
         const tiposPermitidos = ["image/jpeg", "image/png", "image/webp"]
-        const tamanhoMaximo = 5 * 1024 * 1024
+        const tamanhoMaximo = 20 * 1024 * 1024
 
         if (!tiposPermitidos.includes(arquivo.type)) {
             alert("Formato inválido. Use JPG, PNG ou WEBP.")

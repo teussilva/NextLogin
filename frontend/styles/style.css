@@ -11,6 +11,9 @@
   --sidebar-bg: #adbfeb;
   --text-dark: #1a1a2e;
   --darkTheme: #000;
+
+  /* Altura da faixa com a logo no celular/tablet (ajuste aqui se quiser maior/menor) */
+  --auth-banner-h: clamp(170px, 42vw, 300px);
 }
 
 * {
@@ -20,24 +23,50 @@
   font-family: "Poppins", sans-serif;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 html,
 body {
   height: 100%;
   width: 100%;
-  /* font-size: 65.2%; */
 }
 
 body {
   font-size: 82.5%;
   background: var(--dashboard-color-bg);
   transition: 0.5s ease-in;
+  overflow-x: hidden; /* nunca deixa a página rolar pro lado */
 }
+
+/* imagens nunca passam do tamanho do pai */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.alert {
+  display: none;
+  text-align: center;
+  padding: 1rem 1.25rem;
+  border-radius: 0.375rem;
+  font-size: 16px;
+  margin: 15px 35px;
+}
+.alert.active { display: block; }
+
+.alert.success { background: #d1e7dd; color: #0f5132; }
+.alert.error   { background: #f8d7da; color: #842029; }
+.alert.warning { background: #fff3cd; color: #664d03; }
+
 body.dark-theme,
 .aside-menu.dark-theme,
 .header-container.dark-theme {
   background: var(--darkTheme) !important;
   color: var(--auth-color-white) !important;
 }
+
 .aside-btn-arrow-left {
   position: fixed;
   background: var(--text-dark);
@@ -58,10 +87,10 @@ body.dark-theme,
   cursor: pointer;
   margin-top: -3px;
 }
-
 .aside-menu.dark-theme {
   border-right: 1px solid var(--auth-color-white);
 }
+
 i {
   font-size: 28px;
 }
@@ -69,7 +98,6 @@ h1 {
   color: #ffff;
   opacity: 0.7;
 }
-
 h2 {
   color: #393aba;
   font-size: 28px;
@@ -90,15 +118,14 @@ ul {
   margin: 0;
   padding: 0;
 }
-/* aside{
-    position: relative;
-} */
 section {
   position: relative;
   transition: 0.3s;
 }
+
+/* CORRIGIDO: antes o "span" sozinho pegava TODOS os spans do site com 24px */
 .aside-menu-text-top p,
-span {
+.aside-menu-text-top span {
   font-size: 24px !important;
 }
 
@@ -113,10 +140,12 @@ span {
   text-decoration: underline;
   text-underline-offset: 5px;
 }
+/* CORRIGIDO: antes usava position:relative + top:100px (empurrava o link pra fora do card) */
 .btn-fazer-cadastro {
-  position: relative;
-  top: 100px;
+  padding-top: 24px;
+  padding-bottom: 8px;
 }
+
 #msg-foto-atualizada-perfil {
   background: #2a2a8a;
   font-size: 18px;
@@ -140,7 +169,8 @@ span {
   margin-bottom: 1rem;
   background: #2a2a8a;
   color: #d9d9d9;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   text-align: center;
   padding: 0.6rem;
   border-radius: 20px;
@@ -158,11 +188,9 @@ span {
   justify-content: space-evenly;
   padding: 0 80px;
 }
-
 .tr-content-tarefa {
   position: relative;
 }
-
 #titulo-tarefa {
   max-width: 120px;
   white-space: nowrap;
@@ -171,34 +199,29 @@ span {
   color: #d9d9d9;
   font-size: 18.5px;
 }
-
 .descricao-tarefa {
   max-width: 120px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .txt-start {
   text-align: start;
 }
-
 .hidden {
   display: none;
 }
 
-/* ========== LOGIN/CADASTRO ========== */
+/* ========== LOGIN / CADASTRO ========== */
 .input-email #msg-email {
   font-size: 14px;
   margin-top: -30px;
   margin-bottom: 30px;
   padding-left: 23px;
 }
-
 .input-email #msg-email.correct {
   color: #393aba;
 }
-
 .input-email #msg-email.incorrect {
   color: rgb(101, 48, 48);
 }
@@ -209,80 +232,73 @@ span {
   height: auto;
 }
 
+/* CORRIGIDO: era position:fixed + min-height:1000px (não rolava e cortava no celular) */
 .auth-container {
-  position: fixed;
+  position: relative;
   width: 100%;
-  background-image: url('../img/NextLogin-logo-nova.png');
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--dashboard-color-bg);
+  background-image: url("../img/NextLogin-logo-nova.png");
   background-repeat: no-repeat;
   background-size: contain;
-   min-height: 1000px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .auth-content {
-   width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:30px;
-    position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px;
+  position: relative;
 }
+
+/* CORRIGIDO: era position:absolute + left:50% (o card nascia no meio e estourava a tela).
+   Agora ele fica no fluxo normal: começa na metade da tela no desktop. */
 .auth-content .auth-content-center {
-  position: absolute;
-  left: 50%;
-  transform: translateY(-80px);
-  width:100%;
-  max-width:650px;
-  background:var(--auth-color-background-content-right);
-  border-radius:18px;
-  box-shadow:0 15px 40px rgba(0,0,0,.25);
+  margin-left: 50%;
+  width: 100%;
+  max-width: 650px;
+  background: var(--auth-color-background-content-right);
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 }
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .msg-usuario.hidden {
   display: none;
 }
-
-.msg-usuario.correct {
+.msg-usuario.correct,
+.msg-usuario.incorrect {
   text-align: center;
   background: var(--auth-main-color);
-  color: #1b971b;
   font-size: 16.4px;
   border-radius: 4px;
   padding: 12px;
   margin-left: 35px;
   margin-right: 35px;
 }
-
+.msg-usuario.correct {
+  color: #1b971b;
+}
 .msg-usuario.incorrect {
-  text-align: center;
-  background: var(--auth-main-color);
   color: #ad1e1c;
-  font-size: 16.4px;
-  border-radius: 4px;
-  padding: 12px;
-  margin-left: 35px;
-  margin-right: 35px;
 }
 
 .auth-content .auth-content-center .auth-form-cadastro {
   width: 100%;
   padding: 2rem;
 }
-
+/* CORRIGIDO: o padding-bottom de 134px existia só pra compensar o top:60px do botão */
 .auth-content .auth-content-center .auth-form-login {
-  padding: 50.36px 27.78px 134.96px 27.78px;
+  padding: 50px 28px 40px 28px;
 }
 
 .auth-content .auth-content-center .auth-form-cadastro form > .form-input input,
@@ -301,27 +317,12 @@ span {
   cursor: pointer;
 }
 
-.auth-content
-  .auth-content-center
-  .auth-form-cadastro
-  form
-  > .form-input
-  input::placeholder,
-.auth-content
-  .auth-content-center
-  .auth-form-login
-  form
-  .form-input
-  input::placeholder {
+.auth-content .auth-content-center .auth-form-cadastro form > .form-input input::placeholder,
+.auth-content .auth-content-center .auth-form-login form .form-input input::placeholder {
   color: var(--auth-color-white);
 }
 
-.auth-content
-  .auth-content-center
-  .auth-form-cadastro
-  form
-  > .form-input
-  input[type="file"] {
+.auth-content .auth-content-center .auth-form-cadastro form > .form-input input[type="file"] {
   background: transparent;
   padding-left: 0;
 }
@@ -330,21 +331,22 @@ span {
   font-size: 18px;
   display: block;
 }
+.btn-login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-.auth-content .auth-content-center .auth-form-cadastro form #btn-cadastrar,
+.auth-content .auth-content-center .auth-form-cadastro form .btn-cadastrar,
 .auth-content .auth-content-center .auth-form-login form #btn-login {
   display: flex;
   justify-content: center;
 }
 
-.auth-content .auth-content-center .auth-form-login form #btn-login {
-  position: relative;
-  top: 60px;
-}
-
 .auth-content .auth-content-center .auth-form-cadastro form button,
 .auth-content .auth-content-center .auth-form-login form button {
-  width: 158px;
+  width: 50%;
+  min-width: 160px;
   height: 59px;
   margin-top: 39px;
   background: var(--auth-main-color);
@@ -354,8 +356,18 @@ span {
   border: 0;
   opacity: 0.7;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.auth-content .auth-content-center .auth-form-cadastro form button.cadastrando,
+.auth-content .auth-content-center .auth-form-login form button.logando {
+  width: 100%;
+  background: var(--auth-main-color);
+  color: #222;
 }
 
+/* ========== DASHBOARD ========== */
 #dashboard-body {
   background: var(--dashboard-color-bg);
 }
@@ -371,6 +383,7 @@ span {
   top: 0;
   left: 0;
   width: 276px;
+  max-width: 85vw;
   height: 100vh;
   background: var(--sidebar-bg);
   display: flex;
@@ -379,57 +392,38 @@ span {
   overflow-y: auto;
   overflow-x: hidden;
 }
-
 .dashboard-container-main .aside-menu > .aside-menu-content {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-
-.dashboard-container-main
-  .aside-menu
-  > .aside-menu-content
-  > .aside-menu-text-top {
+.dashboard-container-main .aside-menu > .aside-menu-content > .aside-menu-text-top {
   padding: 34px 0 0 43px;
   font-size: 36px;
   font-weight: 500;
   display: flex;
   align-items: center;
 }
-
-.dashboard-container-main
-  .aside-menu
-  > .aside-menu-content
-  > .aside-menu-text-top
-  > p {
+.dashboard-container-main .aside-menu > .aside-menu-content > .aside-menu-text-top > p {
   color: var(--auth-main-color);
 }
-
-.dashboard-container-main
-  .aside-menu
-  > .aside-menu-content
-  > .aside-menu-text-top
-  > span {
+.dashboard-container-main .aside-menu > .aside-menu-content > .aside-menu-text-top > span {
   color: #8632ff;
 }
-
 .dashboard-container-main .aside-menu > .aside-menu-content > nav {
   flex: 1;
   padding: 40px 21px 0 21px;
 }
-
 .dashboard-container-main .aside-menu > .aside-menu-content > nav > h3 {
   padding: 0 1rem 28px 1rem;
   font-size: 20px;
   font-weight: 500;
   color: var(--text-dark);
 }
-
 .dashboard-container-main .aside-menu > .aside-menu-content > nav > ul {
   list-style: none;
 }
-
 .dashboard-container-main .aside-menu > .aside-menu-content > nav > ul > li {
   background: var(--auth-main-color);
   display: block;
@@ -443,22 +437,10 @@ span {
   cursor: pointer;
   transition: opacity 0.3s ease;
 }
-
-.dashboard-container-main
-  .aside-menu
-  > .aside-menu-content
-  > nav
-  > ul
-  > li:hover {
+.dashboard-container-main .aside-menu > .aside-menu-content > nav > ul > li:hover {
   opacity: 0.9;
 }
-
-.dashboard-container-main
-  .aside-menu
-  > .aside-menu-content
-  > nav
-  > ul
-  > li.bottom {
+.dashboard-container-main .aside-menu > .aside-menu-content > nav > ul > li.bottom {
   position: absolute;
   bottom: 20px;
   left: 21px;
@@ -466,14 +448,7 @@ span {
   width: calc(100% - 42px);
   transform: none;
 }
-
-.dashboard-container-main
-  .aside-menu
-  > .aside-menu-content
-  > nav
-  > ul
-  > li
-  > a {
+.dashboard-container-main .aside-menu > .aside-menu-content > nav > ul > li > a {
   display: block;
   color: var(--sidebar-bg);
   text-decoration: none;
@@ -485,23 +460,24 @@ span {
   text-decoration: none;
   padding-left: 2px !important;
 }
+
 .dashboard-container-main > main {
   flex: 1;
   margin-left: 276px;
   width: calc(100% - 276px);
   min-height: 100vh;
+  min-width: 0; /* evita o conteúdo "empurrar" a página pra fora */
 }
-
 .dashboard-main-container {
   width: 100%;
   padding-top: 81px;
 }
-
 .dashboard-main-container > .header-container > .container {
   max-width: 1330px;
   margin: auto;
   padding: 0 20px;
 }
+
 .header-content {
   position: fixed;
   top: 0;
@@ -516,18 +492,15 @@ span {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
   z-index: 99;
 }
-
 .header-text-admin {
   font-size: 26px;
   font-weight: 500;
   color: var(--auth-main-color);
 }
-
 .btn-menu,
 .btn-menu-dark-theme {
   cursor: pointer;
 }
-
 .bg-btn-header {
   background: #d9d9d9;
   width: 50px;
@@ -537,13 +510,11 @@ span {
   align-items: center;
   justify-content: center;
 }
-
 .header-info-perfil {
   display: flex;
   align-items: center;
   gap: 3rem;
 }
-
 .header-info-perfil p.header-info-text-nome,
 span.header-info-text-cargo {
   font-size: 18px;
@@ -582,43 +553,39 @@ h2 {
   padding: 0 20px;
   transition: transform 0.3s ease;
 }
-
 .card-info:hover {
   transform: translateY(-5px);
 }
-
 .card-info img {
   width: 32.5px;
   height: 32.5px;
 }
-
 .card-info div > p {
   font-size: 1rem;
   color: var(--text-dark);
 }
-
 .card-info div > h2 {
   font-size: 2rem;
   color: var(--auth-color-white);
   padding: 0;
 }
+
+/* tabelas: rolam pro lado dentro da própria caixa (não estouram a página) */
 .tarefas-tabela-container {
   margin-top: 2rem;
   background: var(--sidebar-bg);
   height: auto;
   max-height: 500px;
   width: 100%;
-  overflow-y: auto;
+  overflow: auto;
   border-radius: 20px;
   padding: 1rem;
 }
-
 .tarefas-tabela-container table {
   width: 100%;
   border-collapse: collapse;
   text-align: center;
 }
-
 .tarefas-tabela-container th {
   background: var(--table-header-bg);
   color: var(--auth-color-white);
@@ -628,17 +595,14 @@ h2 {
   top: 0;
   z-index: 10;
 }
-
 .tarefas-tabela-container tr {
   height: 73px;
   transition: background 0.2s ease;
   background: var(--dashboard-color-bg);
 }
-
 .tarefas-tabela-container tr:hover {
   background: rgba(255, 255, 255, 0.1);
 }
-
 .tarefas-tabela-container td {
   padding: 12px 15px;
   text-align: center;
@@ -646,14 +610,12 @@ h2 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Botões de ação */
 .buttons-acao-tarefa {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
 }
-
 .buttons-acao-tarefa button {
   width: 45px;
   height: 45px;
@@ -669,11 +631,12 @@ h2 {
   transition: all 0.2s ease;
   font-size: 1.2rem;
 }
-
 .buttons-acao-tarefa button:hover {
   transform: scale(1.1);
   background: var(--auth-main-color);
 }
+
+/* ---- Criar tarefa ---- */
 #criar-tarefa .criar-tarefa-container {
   display: flex;
   justify-content: center;
@@ -682,7 +645,6 @@ h2 {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
 }
-
 #criar-tarefa-content-left {
   flex: 2;
   min-width: 45%;
@@ -692,7 +654,6 @@ h2 {
   padding: 1.5rem;
   margin-top: 2rem;
 }
-
 #criar-tarefa-content-right {
   flex: 1;
   min-width: 50%;
@@ -702,18 +663,15 @@ h2 {
   opacity: 0.8;
   margin-top: 2rem;
 }
-
 #criar-tarefa-content-right .criar-tarefa-content-top {
   margin-bottom: 26px;
   position: relative;
 }
-
 #criar-tarefa-content-right .criar-tarefa-content-top h3 {
   color: #d9d9d9;
   text-align: center;
   font-weight: 500;
 }
-
 #criar-tarefa-content-right .criar-tarefa-content-top h3::before {
   position: absolute;
   content: "";
@@ -725,31 +683,28 @@ h2 {
   height: 3px;
   background: var(--auth-main-color);
 }
-
 .criar-tarefa-content-previa-inputs .input label {
   color: #d9d9d9;
   padding-bottom: 8px;
 }
-
 .criar-tarefa-content-previa-inputs .input > input {
   background: #d9d9d9 !important;
   color: #1a1a2e;
   margin-bottom: 16px;
 }
-
 .form-criar-tarefa .input-grup {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
+/* ---- Formulários em geral ---- */
 label {
   display: block;
   color: var(--auth-color-white);
   font-size: 14px;
   margin-bottom: 8px;
 }
-
 input,
 select {
   width: 100%;
@@ -763,18 +718,16 @@ select {
   outline: none;
   cursor: pointer;
 }
-
 textarea {
   height: 100px;
   padding: 12px 16px;
   resize: vertical;
+  max-width: 100%;
 }
-
 input::placeholder,
 textarea::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
-
 select option {
   background: var(--auth-main-color);
   color: var(--auth-color-white);
@@ -787,7 +740,6 @@ select option {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-
 .buttons-form button {
   width: 120px;
   height: 45px;
@@ -798,21 +750,20 @@ select option {
   font-family: "Poppins", sans-serif;
   transition: opacity 0.3s ease;
 }
-
 .buttons-form button:hover {
   opacity: 0.9;
 }
-
 #button-salvar button {
   background: var(--auth-main-color);
   color: var(--auth-color-white);
 }
-
 #button-cancelar button {
   background: transparent;
   color: var(--auth-color-white);
   border: 1px solid var(--auth-color-white);
 }
+
+/* ---- Modais ---- */
 .data-full-tarefa,
 .modal-excluir-container {
   background: var(--text-dark);
@@ -820,6 +771,8 @@ select option {
   width: 90%;
   max-width: 800px;
   min-height: 300px;
+  max-height: 90vh;
+  overflow-y: auto;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -830,12 +783,10 @@ select option {
   text-align: center;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
-
 .data-full-tarefa.active,
 .modal-excluir-container.active {
   display: block;
 }
-
 .data-full-tarefa .data-full-tarefa-header-content {
   color: var(--auth-color-white);
   display: flex;
@@ -843,23 +794,19 @@ select option {
   justify-content: space-between;
   margin-bottom: 1.5rem;
 }
-
 .data-full-tarefa .data-full-tarefa-header-content > h3 {
   font-size: 22px;
   font-weight: 500;
 }
-
 .data-full-tarefa .data-full-tarefa-header-content > #close-icon {
   cursor: pointer;
   width: 28px;
   height: 28px;
   filter: invert(1);
 }
-
 .data-input {
   margin-bottom: 40px;
 }
-
 .data-input label {
   display: block;
   text-align: start;
@@ -869,7 +816,6 @@ select option {
   opacity: 0.9;
   color: var(--auth-color-white);
 }
-
 .data-input input {
   width: 100%;
   height: 50px;
@@ -906,22 +852,15 @@ select option {
   border-radius: 8px;
   padding: 1.2rem;
 }
-.modal-excluir-container .modal-excluir-content > #titulo-tarefa > p {
-  font-size: 20px;
-  font-weight: 300;
-}
 .modal-excluir-container .modal-excluir-content > .buttons-modal {
   margin: 39px auto;
   display: flex;
   align-items: center;
   gap: 1.1rem;
 }
-.modal-excluir-container
-  .modal-excluir-content
-  > .buttons-modal
-  > .modal-btn
-  button {
+.modal-excluir-container .modal-excluir-content > .buttons-modal > .modal-btn button {
   width: 254px;
+  max-width: 100%;
   height: 53px;
   font-size: 18px;
   border-radius: 20px;
@@ -931,18 +870,13 @@ select option {
   color: #d9d9d9;
   opacity: 0.8;
 }
-.modal-excluir-container
-  .modal-excluir-content
-  > .buttons-modal
-  > #btn-cancelar {
+.modal-excluir-container .modal-excluir-content > .buttons-modal > #btn-cancelar {
   border: 1px solid #2f2f51;
 }
-.modal-excluir-container
-  .modal-excluir-content
-  > .buttons-modal
-  > #btn-excluir {
+.modal-excluir-container .modal-excluir-content > .buttons-modal > #btn-excluir {
   background: #c06b6b;
 }
+
 /* ========== MENSAGENS ========== */
 .msg-tarefa-criada-container {
   background: var(--auth-main-color);
@@ -952,17 +886,17 @@ select option {
   margin-bottom: 1.2rem;
   display: none;
 }
-
 .msg-tarefa-criada-container.active {
   display: block;
   animation: fadeIn 0.3s ease;
 }
-
 .msg-tarefa-criada-container > p {
   font-size: 1.075em;
   color: var(--auth-color-white);
   letter-spacing: 1.02px;
 }
+
+/* ---- Minhas tarefas / filtro ---- */
 #minhas-tarefas .filtro-tarefas-container {
   width: 100%;
   min-height: 100vh;
@@ -972,14 +906,12 @@ select option {
 #minhas-tarefas .filtro-tarefas-container .filtro-trafeas-top {
   margin: 46px auto;
 }
-#minhas-tarefas
-  .filtro-tarefas-container
-  .filtro-trafeas-top
-  .all-opcoes-filtro-tarefa
-  ul {
+#minhas-tarefas .filtro-tarefas-container .filtro-trafeas-top .all-opcoes-filtro-tarefa ul {
   display: flex;
   align-items: start;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   padding: 1rem;
 }
 .all-opcoes-filtro-tarefa ul li {
@@ -1000,7 +932,7 @@ select option {
   min-height: 100px;
   height: auto;
   background: var(--sidebar-bg);
-  overflow-y: auto;
+  overflow: auto;
   padding: 1rem;
 }
 .filtro-trafeas-center table {
@@ -1011,14 +943,14 @@ select option {
 }
 .filtro-trafeas-center table thead tr {
   background: var(--table-header-bg);
-}
-.filtro-trafeas-center table thead tr {
   height: 49px;
 }
 .filtro-trafeas-center table .buttons-acao-tarefa {
   display: flex;
   justify-content: space-between;
 }
+
+/* ---- Perfil ---- */
 .dashboard-content-perfil-container {
   background: var(--card-bg);
   border-radius: 8px;
@@ -1036,7 +968,6 @@ select option {
   text-align: center;
   padding: 1rem 4rem;
 }
-
 #nome-completo {
   margin: 3px 0;
   font-size: 1.7em;
@@ -1045,6 +976,7 @@ select option {
   display: block;
   margin: 0 0 19px 0;
   font-size: 1.2em;
+  word-break: break-word;
 }
 #nome-completo,
 #email-usuario,
@@ -1056,6 +988,7 @@ select option {
 #btn-salvar-foto {
   background: var(--auth-color-background-content-right);
   width: 250px;
+  max-width: 100%;
   min-height: 45px;
   height: auto;
   border-radius: 20px;
@@ -1069,7 +1002,6 @@ select option {
   font-size: 1.5em;
   margin-bottom: 24px;
 }
-
 .dashboard-content-perfil-form > #form-perfil {
   position: relative;
 }
@@ -1083,7 +1015,10 @@ select option {
 select {
   margin-bottom: 30px;
 }
+/* CORRIGIDO: era position:absolute (sobrepunha o conteúdo quando a tela era pequena) */
 #form-perfil > #btn-salvar-alteracao {
+  display: block;
+  margin: 0 auto 1rem;
   background: var(--auth-color-background-content-right);
   color: var(--text-dark);
   font-size: 1.1em;
@@ -1091,94 +1026,76 @@ select {
   opacity: 0.7;
   border: 0;
   width: 250px;
+  max-width: 100%;
   height: 45px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   cursor: pointer;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* ========== RESPONSIVIDADE ========== */
-@media screen and (max-width: 1000px) {
-  .dashboard-container-main .aside-menu.hidden {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-  .dashboard-main-container {
-    transition:
-      margin-left 0.3s ease,
-      width 0.3s ease;
-  }
+/* ============================================================
+   RESPONSIVIDADE (desktop-first: de tela grande para pequena)
+   Breakpoints: 1024 (tablet/sidebar) · 900 (login empilha)
+                768 (tablet pé) · 480 (celular) · 360 (celular pequeno)
+   ============================================================ */
 
-  .dashboard-main-container.expand {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .header-content.expand {
-    left: 0;
-  }
+/* Sidebar escondida via JS (funciona em qualquer largura) */
+.dashboard-container-main .aside-menu.hidden {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
 }
-@media screen and (min-width: 1000px) {
-  .dashboard-container-main .aside-menu.hidden {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-  .dashboard-main-container {
-    transition:
-      margin-left 0.3s ease,
-      width 0.3s ease;
-  }
-
-  .dashboard-main-container.expand {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .header-content.expand {
-    left: 0;
-  }
+.dashboard-main-container {
+  transition: margin-left 0.3s ease, width 0.3s ease;
 }
+.dashboard-main-container.expand {
+  margin-left: 0;
+  width: 100%;
+}
+.header-content.expand {
+  left: 0;
+}
+
+/* ---------- Tablet paisagem e abaixo (≤1024px) ---------- */
 @media screen and (max-width: 1024px) {
   .dashboard-container-main .aside-menu {
     transform: translateX(-100%);
     transition: transform 0.3s ease;
   }
-
   .dashboard-container-main .aside-menu.active {
     transform: translateX(0);
   }
-
   .dashboard-container-main > main {
     margin-left: 0;
     width: 100%;
   }
-
   .header-content {
     left: 0;
   }
-
-  .dashboard-main-container {
-    padding-top: 81px;
-  }
-
   .card-info {
     width: 100%;
     max-width: 307px;
   }
+  .dashboard-content-perfil-container {
+    width: 100%;
+    min-height: auto;
+  }
+  #criar-tarefa-content-left,
+  #criar-tarefa-content-right {
+    flex: 1 1 100%;
+    min-width: 100%;
+    min-height: auto;
+  }
+  #criar-tarefa .criar-tarefa-container {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
-@media screen and (max-width: 999px) {
+
+/* ---------- Cards empilhados (≤1000px) ---------- */
+@media screen and (max-width: 1000px) {
   .d-flex {
     flex-direction: column;
     justify-content: space-around;
@@ -1191,85 +1108,247 @@ select {
   }
 }
 
+/* ---------- LOGIN/CADASTRO empilhado (≤900px) ----------
+   Faixa com a logo em cima + card do formulário embaixo, largura total */
+@media screen and (max-width: 900px) {
+  .auth-container {
+    background-image: none;
+    align-items: flex-start;
+    padding-top: var(--auth-banner-h);
+  }
+  /* a imagem vira uma faixa no topo; ajuste o background-position se a logo ficar cortada */
+  .auth-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--auth-banner-h);
+    background: url("../img/NextLogin-logo-nova.png") no-repeat;
+    background-size: cover;
+    background-position: center 45%;
+  }
+  .auth-content {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px 32px;
+  }
+  .auth-content .auth-content-center {
+    position: relative;
+    margin: -20px auto 0; /* sobe um pouquinho sobre a faixa */
+    width: 100%;
+    max-width: 560px;
+  }
+  .auth-content .auth-content-left {
+    display: none;
+  }
+}
+
+/* ---------- Tablet retrato (≤768px) ---------- */
 @media screen and (max-width: 768px) {
-  .auth-content-center{
-        width:95%;
-        margin:20px;
-    }
+  .container {
+    padding: 0 24px;
+  }
+  .dashboard-content .container {
+    padding: 0 16px;
+  }
+  h2 {
+    font-size: 24px;
+    padding: 12px 8px;
+  }
   .header-content {
     padding: 0 20px;
   }
-
   .header-text-admin {
     font-size: 20px;
   }
-
   .header-info-perfil {
     gap: 1rem;
   }
-
   .bg-btn-header {
     width: 40px;
     height: 40px;
   }
 
-  .tarefas-tabela-container {
+  .tarefas-tabela-container,
+  .filtro-trafeas-center {
     font-size: 12px;
   }
-
+  .tarefas-tabela-container table,
+  .filtro-trafeas-center table {
+    min-width: 560px; /* a tabela rola pro lado dentro da caixa */
+  }
   .tarefas-tabela-container th,
   .tarefas-tabela-container td {
     padding: 8px;
   }
-
   .buttons-acao-tarefa button {
     width: 35px;
     height: 35px;
     font-size: 0.9rem;
   }
 
-  .auth-container {
-    padding: 2rem;
+  #minhas-tarefas .filtro-tarefas-container .filtro-trafeas-top .all-opcoes-filtro-tarefa ul {
+    justify-content: center;
+  }
+
+  #msg-foto-atualizada-perfil {
+    max-width: 100%;
+  }
+  #msg-foto-atualizada-perfil.active {
+    width: 100%;
+  }
+  .dashboard-content-perfil-container .dashboard-content-perfil-content-top {
+    padding: 1rem;
+  }
+
+  .data-full-tarefa,
+  .modal-excluir-container {
+    padding: 1.5rem;
+  }
+  .data-input {
+    margin-bottom: 24px;
+  }
+  .modal-excluir-container .modal-excluir-content > .buttons-modal {
+    flex-direction: column;
+    width: 100%;
+    margin: 24px auto;
+  }
+  .modal-excluir-container .modal-excluir-content > .buttons-modal > .modal-btn {
+    width: 100%;
+  }
+  .modal-excluir-container .modal-excluir-content > .buttons-modal > .modal-btn button {
+    width: 100%;
   }
 }
 
+/* ---------- Celular (≤480px) ---------- */
 @media screen and (max-width: 480px) {
   .header-info-text-nome,
   .header-info-text-cargo {
     display: none;
   }
-
+  .header-text-admin {
+    font-size: 16px;
+  }
   .d-flex {
     justify-content: center;
+  }
+  .container {
+    padding: 0 12px;
+  }
+  .dashboard-content .container {
+    padding: 0 12px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  h3,
+  p {
+    font-size: 16px;
+  }
+  .card-info {
+    width: 100%;
+    height: 90px;
+  }
+  .card-info div > h2 {
+    font-size: 1.6rem;
   }
 
   .buttons-form {
     flex-direction: column;
     align-items: center;
   }
-
   .buttons-form button {
     width: 100%;
   }
 
-  .card-info {
-    width: 100%;
+  .modal-excluir-container .modal-excluir-content > h3,
+  .modal-excluir-container .modal-excluir-content > p,
+  .modal-excluir-container .modal-excluir-content > #titulo-tarefa > p {
+    font-size: 16px;
   }
 
+  /* --- Login / Cadastro no celular --- */
   .auth-content {
-    flex-direction: column;
+    padding: 0 12px 24px;
   }
-
-  .auth-content .auth-content-left {
-    display: none;
-    width: 0;
-    background-image: none;
-  }
-
   .auth-content .auth-content-center {
-    width: 100%;
+    border-radius: 14px;
   }
-  .container {
-    padding: 0 20px;
+  .auth-content .auth-content-center .auth-form-cadastro {
+    padding: 1.25rem;
+  }
+  .auth-content .auth-content-center .auth-form-login {
+    padding: 32px 20px 28px;
+  }
+  .auth-content .auth-content-center .auth-form-cadastro form > .form-input input,
+  .auth-content .auth-content-center .auth-form-login form .form-input input {
+    height: 50px;
+    margin-bottom: 24px;
+    padding-left: 16px;
+  }
+  .input-email #msg-email {
+    margin-top: -16px;
+    margin-bottom: 16px;
+    padding-left: 4px;
+  }
+  .input-foto label {
+    font-size: 15px;
+  }
+  .auth-content .auth-content-center .auth-form-cadastro form button,
+  .auth-content .auth-content-center .auth-form-login form button {
+    width: 100%;
+    height: 52px;
+    margin-top: 24px;
+  }
+  .btn-fazer-logn,
+  .btn-fazer-cadastro {
+    font-size: 15px;
+    padding-top: 20px;
+  }
+  .msg-usuario.correct,
+  .msg-usuario.incorrect {
+    margin-left: 16px;
+    margin-right: 16px;
+    font-size: 14px;
+  }
+  .alert.alert-success {
+    margin: 12px 16px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* ---------- Celular pequeno (≤360px) ---------- */
+@media screen and (max-width: 360px) {
+  :root {
+    --auth-banner-h: 150px;
+  }
+  .auth-content .auth-content-center .auth-form-cadastro {
+    padding: 1rem;
+  }
+  .header-content {
+    padding: 0 12px;
+  }
+  .bg-btn-header {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media screen and (min-width: 901px) and (max-height: 800px) {
+  .auth-content .auth-content-center .auth-form-cadastro {
+    padding: 1.25rem 2rem;
+  }
+  .auth-content .auth-content-center .auth-form-cadastro form > .form-input input {
+    height: 44px;
+    margin-bottom: 18px;
+  }
+  .auth-content .auth-content-center .auth-form-cadastro form button {
+    height: 48px;
+    margin-top: 20px;
+  }
+  .btn-fazer-cadastro {
+    padding-top: 12px;
   }
 }

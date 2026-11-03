@@ -24,12 +24,34 @@ html,
 body {
   height: 100%;
   width: 100%;
+  /* font-size: 65.2%; */
 }
 
 body {
   font-size: 82.5%;
   background: var(--dashboard-color-bg);
   transition: 0.5s ease-in;
+}
+.alert.alert-success {
+    background-color: #d1e7dd !important;
+    border-color: #bcd0c7 !important;
+    color: #0f5132 !important;
+    padding: 1rem 1.25rem !important;
+    border-radius: 0.375rem !important;
+    font-size: 16px !important; 
+    display: none;
+    margin: 15px 35px !important;
+}
+.alert.alert-success.active {
+  display: block;
+}
+
+.alert.alert-success strong {
+    color: #0f5132 !important;
+}
+
+.alert{
+  text-align: center;
 }
 body.dark-theme,
 .aside-menu.dark-theme,
@@ -114,7 +136,7 @@ span {
 }
 .btn-fazer-cadastro {
   position: relative;
-  top: 200px;
+  top: 100px;
 }
 #msg-foto-atualizada-perfil {
   background: #2a2a8a;
@@ -209,55 +231,44 @@ span {
 }
 
 .auth-container {
-  display: flex;
-  min-height: 100vh;
-  height: auto;
-  padding: 4rem;
+  position: fixed;
+  width: 100%;
+  background-image: url('../img/NextLogin-logo-nova.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+   min-height: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .auth-content {
+   width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    position: relative;
+}
+.auth-content .auth-content-center {
   position: absolute;
-  left: 28%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 753px;
+  left: 50%;
+  transform: translateY(-80px);
+  width:100%;
+  max-width:650px;
+  background:var(--auth-color-background-content-right);
+  border-radius:18px;
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
 }
-
-.auth-content .auth-content-left {
-  /* height: 100%; */
-  max-width: 50%;
-  width: 50%;
-  /* background-image: url("../img/NextLogin-logo-nova.png"); */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.auth-content-left::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.auth-main-logo {
-  width: 1000px;
-  height: 700px;
-}
-
-.auth-content-center{
-  flex: 1;
-  background: var(--auth-color-background-content-right);
-  height: 100%;
-  max-width: 50%;
-  width: 50%;
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 .msg-usuario.hidden {
@@ -286,17 +297,17 @@ span {
   margin-right: 35px;
 }
 
-.auth-content-center.auth-form-cadastro {
+.auth-content .auth-content-center .auth-form-cadastro {
   width: 100%;
   padding: 2rem;
 }
 
-.auth-content-center.auth-form-login {
+.auth-content .auth-content-center .auth-form-login {
   padding: 50.36px 27.78px 134.96px 27.78px;
 }
 
-.auth-content-center.auth-form-cadastro form > .form-input input,
-.auth-content-center.auth-form-login form .form-input input {
+.auth-content .auth-content-center .auth-form-cadastro form > .form-input input,
+.auth-content .auth-content-center .auth-form-login form .form-input input {
   background: var(--auth-main-color);
   border-radius: 5px;
   color: var(--auth-color-white);
@@ -318,7 +329,7 @@ span {
   > .form-input
   input::placeholder,
 .auth-content
-  .auth-content-right
+  .auth-content-center
   .auth-form-login
   form
   .form-input
@@ -327,7 +338,7 @@ span {
 }
 
 .auth-content
-  .auth-content-right
+  .auth-content-center
   .auth-form-cadastro
   form
   > .form-input
@@ -340,23 +351,28 @@ span {
   font-size: 18px;
   display: block;
 }
+.btn-login-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-auth-content-center.auth-form-cadastro form #btn-cadastrar,
-auth-content-center.auth-form-login form #btn-login {
+.auth-content .auth-content-center .auth-form-cadastro form .btn-cadastrar,
+.auth-content .auth-content-center .auth-form-login form #btn-login {
   display: flex;
   justify-content: center;
 }
 
-auth-content-center.auth-form-login form #btn-login {
+.auth-content .auth-content-center .auth-form-login form #btn-login {
   position: relative;
   top: 60px;
 }
 
-auth-content-center.auth-form-cadastro form button,
-auth-content-center.auth-form-login form button {
-  width: 158px;
+.auth-content .auth-content-center .auth-form-cadastro form button,
+.auth-content .auth-content-center .auth-form-login form button {
+  width: 50%;
   height: 59px;
-  margin-top: 69px;
+  margin-top: 39px;
   background: var(--auth-main-color);
   color: var(--auth-color-white);
   border-radius: 10px 0 10px 0;
@@ -364,8 +380,16 @@ auth-content-center.auth-form-login form button {
   border: 0;
   opacity: 0.7;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
+.auth-content .auth-content-center .auth-form-cadastro form button.cadastrando,
+.auth-content .auth-content-center .auth-form-login form button.logando{
+  width: 100%;
+  background: var(--auth-main-color);
+  color: #222;
+}
 #dashboard-body {
   background: var(--dashboard-color-bg);
 }
@@ -566,10 +590,9 @@ span.header-info-text-cargo {
   padding: 0 20px;
 }
 h2 {
-  left: 0;
   text-align: start;
   width: 100%;
-  margin: 20px 0;
+  margin: auto;
 }
 .cards-container {
   width: 100%;
@@ -1203,6 +1226,10 @@ select {
 }
 
 @media screen and (max-width: 768px) {
+  .auth-content-center{
+        width:95%;
+        margin:20px;
+    }
   .header-content {
     padding: 0 20px;
   }
@@ -1273,11 +1300,10 @@ select {
     background-image: none;
   }
 
-  auth-content-center{
+  .auth-content .auth-content-center {
     width: 100%;
   }
   .container {
     padding: 0 20px;
   }
 }
-
