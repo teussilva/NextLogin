@@ -4,7 +4,31 @@ const header_usuario_foto = document.querySelector('.header-container .header-in
 const aside_nav_menu = document.querySelectorAll('.aside-menu nav ul li')
 const sections = document.querySelectorAll('section')
 
-// const token = localStorage.getItem('token')
+const token = localStorage.getItem('token')
+
+window.addEventListener('DOMContentLoaded', () => {
+    const getUsuarioLogged = JSON.parse(localStorage.getItem('usuario'))
+    const getNameLoggedOFLocalstorage = getUsuarioLogged.nome.split(' ')
+    
+    document.getElementById('msg-usuario-login-sucess').classList.add('active')
+    let alertDashboardLogin =  document.querySelector('.alert-dashboard-login')
+    let alertDashboardLogin_span = document.querySelector('.alert-dashboard-login > p > span')
+    alertDashboardLogin_span.textContent = getNameLoggedOFLocalstorage.slice(0,1) + ' ' + getNameLoggedOFLocalstorage.slice(1)
+    setTimeout(() => {
+         document.getElementById('msg-usuario-login-sucess').classList.remove('active')
+    }, 3000)
+
+    console.log(alertDashboardLogin_span)
+    
+     // if(token){
+    //   console.log('Dashboard contem token')
+    // }else if(!token){
+    //   localStorage.removeItem('token')
+    //   localStorage.removeItem('usuario')
+    //   window.location.href = './cadastro.html'
+    //   console.log('Dashboard nao contem token')
+    // }
+})
 
 aside_nav_menu.forEach(itemLi => {
     itemLi.addEventListener('click', () => {
