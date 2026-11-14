@@ -65,8 +65,10 @@ window.addEventListener('DOMContentLoaded', () => {
           mostrarMensagem('🎉 Login realizado com sucesso!', 'success')
           redirecionando =  true
           setTimeout(() => {
-            window.location.href = './dashboard.html' 
+            window.location.href = './dashboard.html'
           }, delay(800))
+
+         
 
         } catch (error) {
             console.error('Erro de conexão:', error)

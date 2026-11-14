@@ -5,6 +5,8 @@ const select_perfilCargo = document.getElementById('perfil-cargo')
 const input_perfilNovaSenha = document.getElementById('perfil-nova-senha')
 const input_perfilConfirmarSenha = document.getElementById('perfil-confirmar-senha')
 
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
 const fetchEditInformacoesPerfil = async (obj) => {
    const localstorage_usario = JSON.parse(localStorage.getItem('usuario'))
    let token = localStorage.getItem('token')
@@ -31,6 +33,9 @@ const fetchEditInformacoesPerfil = async (obj) => {
 
             localStorage.setItem('usuario', JSON.stringify(usuarioAtualizado))
             window.location.reload()
+             setTimeout(function (){
+                  window.location = 'login.html'
+             }, delay(400))
         }
 
     } catch (error) {

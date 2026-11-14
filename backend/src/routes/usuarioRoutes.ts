@@ -13,7 +13,4 @@ router.post('/login', usuarioController.login.bind(usuarioController))
 router.patch('/perfil/:id', autenticar, usuarioController.atualizarPerfil.bind(usuarioController))
 router.patch('/:id/foto', autenticar, upload.single('foto'), usuarioController.atualizarFoto.bind(usuarioController))
 
-
-
-
 export default router

@@ -39,18 +39,14 @@ addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 usuario.foto = data.foto
                 localStorage.setItem('usuario', JSON.stringify(usuario))
-
                 const novaUrl = `http://127.0.0.1:3000/uploads/${data.foto}`
                 div_content_perfil_foto.querySelector('img').src = novaUrl
                 header_usuario_foto.querySelector('img').src = novaUrl
-
                 document.getElementById('btn-salvar-foto').style.display = 'none'
                 document.getElementById('msg-foto-atualizada-perfil').classList.add('active')
-            
             } else {
                 alert(data.mensagem || 'Erro ao salvar foto.')
             }
-
         } catch (error) {
             console.log(error)
             alert('Erro de conexão.')

@@ -32,7 +32,9 @@ body {
   height: 100%;
   width: 100%;
 }
-
+.alert-dashboard-login > span{
+  display: block;
+}
 body {
   font-size: 82.5%;
   background: var(--dashboard-color-bg);
@@ -45,7 +47,27 @@ img {
   max-width: 100%;
   height: auto;
 }
-
+.alert-dashboard-login{
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  background: var(--button-bg);
+  border-radius: 6px;
+  padding: 1.423rem;
+  padding-top: 40px;
+  animation-name: animeAlertDashboardLogin;
+  animation-duration: 0.5s;
+  animation-delay: 0.8;
+  transition: ease-in;
+}
+@keyframes animeAlertDashboardLogin {
+  from {
+    bottom: -30px;
+  }
+  to{
+    bottom: 30px;
+  }
+}
 .alert {
   display: none;
   text-align: center;
